@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <script
+            type="text/javascript"
+            async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"
+        ></script>
+
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+              tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+            });
+        </script>
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Fira+Mono&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            * {
+                font-family: "Open Sans", sans-serif;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            code,
+            .MathJax_CHTML {
+                font-family: "Fira Mono", monospace;
+                {% if accent_colour %}color: {{ accent_colour }};{% endif %}
+            }
+
+            pre code {
+                background-color: #eee;
+                display: block;
+                padding: 1em;
+            }
+
+            .container {
+                margin: 2em;
+            }
+
+            header {
+                display: flex;
+                max-height: 6em;
+                justify-content: space-between;
+            }
+
+            .logo img {
+                max-height: 100%;
+            }
+
+            .metadata {
+                text-align: right;
+            }
+
+            .metadata h3,
+            .metadata h5 {
+                margin: 0.3em;
+            }
+
+            blockquote {
+                margin: 0;
+                padding-left: 1.4rem;
+                border-left: 4px solid #dadada;
+            }
+        </style>
+
+        <title>{{ name }}</title>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <div class="logo">
+                    <img src="{{ logo_url }}" />
+                </div>
+                <div class="metadata">
+                    <h3>{{ shortname }}</h3>
+                    <h5>{{ contest }}</h5>
+                    <h5>{{ order }}</h5>
+                    <h5>{{ language }}</h5>
+                </div>
+            </header>
+            <hr />
+
+            <h1>{{ name }}</h1>
+            {{ description | markdown }} {% if input %}
+            <h2>Input</h2>
+            {{ input | markdown }} {% endif %} {% if output %}
+            <h2>Output</h2>
+            {{ output | markdown }} {% endif %} {% if constraints %}
+            <h2>Constraints</h2>
+            {{ constraints | markdown }} {% endif %} {% if scoring %}
+            <h2>Scoring</h2>
+            {{ scoring | markdown }} {% endif %}
+        </div>
+    </body>
+</html>

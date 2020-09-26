@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <style>
+            
+        </style>
+
+        <title>Make a Statement!</title>
+    </head>
+    <body>
+        <form action="{{ url_for('statement') }}" method="post" id="details">
+            <input type="text" name="name" placeholder="Name"/>
+            <input type="text" name="shortname" placeholder="Short Name"/>
+            <input type="text" name="contest" placeholder="Contest"/>
+            <input type="text" name="order" placeholder="Order"/>
+            <input type="text" name="language" placeholder="Language"/>
+            <input type="text" name="logo_url" placeholder="Logo URL"/>
+            <input type="text" name="accent_colour" placeholder="Accent Colour"/>
+            <textarea form="details" rows="20" name="description" placeholder="Problem Description"></textarea>
+            <textarea form="details" rows="20" name="input" placeholder="Input"></textarea>
+            <textarea form="details" rows="20" name="output" placeholder="Output"></textarea>
+            <textarea form="details" rows="20" name="constraints" placeholder="Constraints"></textarea>
+            <textarea form="details" rows="20" name="scoring" placeholder="Scoring"></textarea>
+            <input type="submit" value="Submit" />
+        </form>
+    </body>
+</html>
