@@ -1,3 +1,6 @@
+import base64
+from urllib.request import urlopen 
+
 from flask import Flask, make_response, request, render_template
 from flaskext.markdown import Markdown
 import pdfkit
@@ -27,13 +30,15 @@ def statement():
     constraints = f['constraints']
     scoring = f['scoring']
 
+    logo_b64 = base64.b64encode(urlopen(logo_url).read()).decode('utf-8')
+
     html = render_template('statement.html',
                            name=name,
                            shortname=shortname,
                            contest=contest,
                            order=order,
                            language=language,
-                           logo_url=logo_url,
+                           logo=f'data:image/png;base64,{logo_b64}',
                            accent_colour=accent_colour,
                            description=description,
                            input=inp,
@@ -42,15 +47,18 @@ def statement():
                            scoring=scoring
                           )
     
-    # options = {  
-    #     'footer-center': '[page] of [topage]',
-    # }
-    # pdf = pdfkit.from_string(html, False, options=options)
-    # response = make_response(pdf)
-    # response.headers['Content-Type'] = 'application/pdf'
-    # response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
-    # return response
-    return html
+    options = {  
+        'footer-center': 'Page [page] of [topage]',
+        'quiet': '',
+        'javascript-delay' : '5000',
+        'page-size': 'A4',
+    }
+    pdf = pdfkit.from_string(html, False, options=options)
+    response = make_response(pdf)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
+    return response
+    # return html
 
 if __name__ == '__main__':
     app.run()

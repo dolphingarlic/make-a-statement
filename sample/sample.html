@@ -17,12 +17,12 @@
         </script>
 
         <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Fira+Mono&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Lexend+Deca&family=Fira+Mono&display=swap"
             rel="stylesheet"
         />
         <style>
             * {
-                font-family: "Open Sans", sans-serif;
+                font-family: "Lexend Deca", sans-serif;
             }
 
             h1,
@@ -33,6 +33,7 @@
             code,
             .MathJax_CHTML {
                 font-family: "Fira Mono", monospace;
+                font-weight: bold;
                 color: #154360;
             }
 
@@ -47,9 +48,14 @@
             }
 
             header {
-                display: flex;
-                max-height: 6em;
-                justify-content: space-between;
+                height: 6em;
+                width: 100%;
+                display: table;
+            }
+
+            .logo {
+                display: inline-block;
+                height: 6em;
             }
 
             .logo img {
@@ -57,12 +63,13 @@
             }
 
             .metadata {
+                float: right;
                 text-align: right;
             }
 
             .metadata h3,
             .metadata h5 {
-                margin: 0.3em;
+                margin: 0.4em;
             }
 
             blockquote {
