@@ -5,26 +5,142 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <style>
-            
+            form {
+                /* Center the form on the page */
+                margin: 0 auto;
+                width: 450px;
+                /* Form outline */
+                padding: 1em;
+                border: 1px solid #ccc;
+                border-radius: 1em;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            form li + li {
+                margin-top: 1em;
+            }
+
+            label {
+                /* Uniform size & alignment */
+                display: inline-block;
+                width: 140px;
+                text-align: right;
+            }
+
+            input,
+            textarea {
+                /* To make sure that all text fields have the same font settings
+     By default, textareas have a monospace font */
+                font: 1em sans-serif;
+
+                /* Uniform text field size */
+                width: 300px;
+                box-sizing: border-box;
+
+                /* Match form field borders */
+                border: 1px solid #999;
+            }
+
+            input:focus,
+            textarea:focus {
+                /* Additional highlight for focused elements */
+                border-color: #000;
+            }
+
+            textarea {
+                /* Align multiline text fields with their labels */
+                vertical-align: top;
+
+                /* Provide space to type some text */
+                height: 5em;
+            }
+
+            .button {
+                /* Align buttons with the text fields */
+                padding-left: 90px; /* same size as the label elements */
+            }
+
+            button {
+                /* This extra margin represent roughly the same space as the space
+     between the labels and their text fields */
+                margin-left: 0.5em;
+            }
         </style>
 
         <title>Make a Statement!</title>
     </head>
     <body>
         <form action="{{ url_for('statement') }}" method="post" id="details">
-            <input type="text" name="name" placeholder="Name"/>
-            <input type="text" name="shortname" placeholder="Short Name"/>
-            <input type="text" name="contest" placeholder="Contest"/>
-            <input type="text" name="order" placeholder="Order"/>
-            <input type="text" name="language" placeholder="Language"/>
-            <input type="text" name="logo_url" placeholder="Logo URL"/>
-            <input type="text" name="accent_colour" placeholder="Accent Colour"/>
-            <textarea form="details" rows="20" name="description" placeholder="Problem Description"></textarea>
-            <textarea form="details" rows="20" name="input" placeholder="Input"></textarea>
-            <textarea form="details" rows="20" name="output" placeholder="Output"></textarea>
-            <textarea form="details" rows="20" name="constraints" placeholder="Constraints"></textarea>
-            <textarea form="details" rows="20" name="scoring" placeholder="Scoring"></textarea>
-            <input type="submit" value="Submit" />
+            <ul>
+                <li>
+                    <label for="name">Problem name:</label>
+                    <input type="text" name="name" />
+                </li>
+                <li>
+                    <label for="shortname">Short name:</label>
+                    <input type="text" name="shortname" />
+                </li>
+                <li>
+                    <label for="contest">Contest:</label>
+                    <input type="text" name="contest" />
+                </li>
+                <li>
+                    <label for="order">Competition day:</label>
+                    <input type="text" name="order" />
+                </li>
+                <li>
+                    <label for="language">Language:</label>
+                    <input type="text" name="language" />
+                </li>
+                <li>
+                    <label for="logo_url">Logo URL:</label>
+                    <input type="text" name="logo_url" />
+                </li>
+                <li>
+                    <label for="accent_colour">Accent colour:</label>
+                    <input type="text" name="accent_colour" />
+                </li>
+                <li>
+                    <label for="description">Problem description:</label>
+                    <textarea
+                        form="details"
+                        rows="20"
+                        name="description"
+                    ></textarea>
+                </li>
+                <li>
+                    <label for="input">Input format:</label>
+                    <textarea form="details" rows="20" name="input"></textarea>
+                </li>
+                <li>
+                    <label for="output">Output format:</label>
+                    <textarea form="details" rows="20" name="output"></textarea>
+                </li>
+                <li>
+                    <label for="constraints">Constraints:</label>
+                    <textarea
+                        form="details"
+                        rows="20"
+                        name="constraints"
+                    ></textarea>
+                </li>
+                <li>
+                    <label for="scoring">Scoring:</label>
+                    <textarea
+                        form="details"
+                        rows="20"
+                        name="scoring"
+                    ></textarea>
+                </li>
+                <li>
+                    <input type="submit" value="Submit" />
+                </li>
+            </ul>
         </form>
     </body>
 </html>
