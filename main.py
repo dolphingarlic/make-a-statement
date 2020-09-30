@@ -1,19 +1,31 @@
-import asyncio
-import base64
-from urllib.request import urlopen
+import time
 
 from quart import Quart, make_response, request, render_template
 from flaskext.markdown import Markdown
-import pdfgen
+import pyppeteer
 
-loop = asyncio.get_event_loop()
 app = Quart(__name__)
 Markdown(app, extensions=['fenced_code'])
+pyppeteer_opts = {
+    'format': 'A4',
+    'printBackground': True,
+    'margin': {'top': '1cm', 'bottom': '1cm', 'left': '1cm', 'right': '1cm'},
+}
 
 
 @app.route('/')
 def home():
     return render_template('index.html')
+
+
+async def create_pdf(html):
+    browser = await pyppeteer.launch()
+    page = await browser.newPage()
+    await page.setContent(html)
+    time.sleep(3)
+    pdf = await page.pdf(pyppeteer_opts)
+    await browser.close()
+    return pdf
 
 
 @app.route('/statement', methods=['POST'])
@@ -32,19 +44,13 @@ async def statement():
     constraints = f['constraints']
     scoring = f['scoring']
 
-    if logo_url:
-        logo_b64 = base64.b64encode(urlopen(logo_url).read()).decode("utf-8")
-        logo_b64 = f'data:image/png;base64,{logo_b64}'
-    else:
-        logo_b64 = ''
-
     html = await render_template('statement.html',
                                  name=name,
                                  shortname=shortname,
                                  contest=contest,
                                  order=order,
                                  language=language,
-                                 logo=logo_b64,
+                                 logo_url=logo_url,
                                  accent_colour=accent_colour,
                                  description=description,
                                  input=inp,
@@ -53,8 +59,7 @@ async def statement():
                                  scoring=scoring
                                  )
 
-    # return html
-    pdf = await pdfgen.from_string(html)
+    pdf = await create_pdf(html)
     response = await make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
     response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
