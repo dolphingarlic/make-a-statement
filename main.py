@@ -14,8 +14,8 @@ pyppeteer_opts = {
 
 
 @app.route('/')
-def home():
-    return render_template('index.html')
+async def home():
+    return await render_template('index.html')
 
 
 async def create_pdf(html):
