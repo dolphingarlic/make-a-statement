@@ -1,12 +1,9 @@
-import asyncio
 import time
 
 from quart import Quart, make_response, request, render_template
 from flaskext.markdown import Markdown
 import pyppeteer
 
-loop = asyncio.new_event_loop()
-asyncio.set_event_loop(loop)
 app = Quart(__name__)
 Markdown(app, extensions=['fenced_code'])
 pyppeteer_opts = {
