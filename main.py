@@ -19,7 +19,7 @@ async def home():
 
 
 async def create_pdf(html):
-    browser = await pyppeteer.launch()
+    browser = await pyppeteer.launch(options={'args': ['--no-sandbox']})
     page = await browser.newPage()
     await page.setContent(html)
     time.sleep(3)
