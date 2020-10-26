@@ -97,15 +97,32 @@
             <hr />
 
             <h1>{{ name }}</h1>
-            {{ description | markdown }} {% if input %}
+            {{ description | markdown }}
+            
+            {% if input %}
             <h2>Input</h2>
-            {{ input | markdown }} {% endif %} {% if output %}
+            {{ input | markdown }}
+            {% endif %}
+            
+            {% if output %}
             <h2>Output</h2>
-            {{ output | markdown }} {% endif %} {% if constraints %}
+            {{ output | markdown }}
+            {% endif %}
+            
+            {% if constraints %}
             <h2>Constraints</h2>
-            {{ constraints | markdown }} {% endif %} {% if scoring %}
+            {{ constraints | markdown }}
+            {% endif %}
+            
+            {% if scoring %}
             <h2>Scoring</h2>
-            {{ scoring | markdown }} {% endif %}
+            {{ scoring | markdown }}
+            {% endif %}
+            
+            {% if examples %}
+            <h2>Examples</h2>
+            {{ examples | markdown }}
+            {% endif %}
         </div>
     </body>
 </html>

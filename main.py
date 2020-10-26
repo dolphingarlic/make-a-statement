@@ -1,36 +1,18 @@
-import time
-
-from quart import Quart, make_response, request, render_template
+from flask import Flask, make_response, request, render_template
 from flaskext.markdown import Markdown
-import pyppeteer
 
-app = Quart(__name__)
+app = Flask(__name__)
 Markdown(app, extensions=['fenced_code'])
-pyppeteer_opts = {
-    'format': 'A4',
-    'printBackground': True,
-    'margin': {'top': '1cm', 'bottom': '1cm', 'left': '1cm', 'right': '1cm'},
-}
 
 
 @app.route('/')
-async def home():
-    return await render_template('index.html')
-
-
-async def create_pdf(html):
-    browser = await pyppeteer.launch(options={'args': ['--no-sandbox']})
-    page = await browser.newPage()
-    await page.setContent(html)
-    time.sleep(3)
-    pdf = await page.pdf(pyppeteer_opts)
-    await browser.close()
-    return pdf
+def home():
+    return render_template('index.html')
 
 
 @app.route('/statement', methods=['POST'])
-async def statement():
-    f = await request.form
+def statement():
+    f = request.form
     name = f['name']
     shortname = f['shortname']
     contest = f['contest']
@@ -43,8 +25,9 @@ async def statement():
     output = f['output']
     constraints = f['constraints']
     scoring = f['scoring']
+    examples = f['examples']
 
-    html = await render_template('statement.html',
+    return render_template('statement.html',
                                  name=name,
                                  shortname=shortname,
                                  contest=contest,
@@ -56,14 +39,10 @@ async def statement():
                                  input=inp,
                                  output=output,
                                  constraints=constraints,
-                                 scoring=scoring
+                                 scoring=scoring,
+                                 examples=examples
                                  )
 
-    pdf = await create_pdf(html)
-    response = await make_response(pdf)
-    response.headers['Content-Type'] = 'application/pdf'
-    response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
-    return response
 
 if __name__ == '__main__':
     app.run()

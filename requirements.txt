@@ -1,4 +1,2 @@
-Quart==0.13.1
 Flask==1.1.2
 Flask-Markdown==0.3
-pyppeteer==0.2.2
