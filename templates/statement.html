@@ -17,13 +17,13 @@
         </script>
 
         <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Fira+Sans&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Fira+Sans&family=Fira+Mono&display=swap"
             rel="stylesheet"
         />
         <style>
             html {
                 line-height: 1.5;
-                font-family: "Open Sans", sans-serif;
+                font-family: "Roboto Slab", serif;
             }
 
             h1,
@@ -33,18 +33,18 @@
             h5,
             code,
             .MathJax_CHTML {
-                font-family: "Fira Sans", monospace;
+                font-family: "Fira Sans", sans-serif;
                 {% if accent_colour %}color: {{ accent_colour }};{% endif %}
+            }
+
+            code {
+                font-family: "Fira Mono", monospace;
             }
 
             pre code {
                 background-color: #eee;
                 display: block;
                 padding: 1em;
-            }
-
-            .container {
-                margin: 0;
             }
 
             header {
@@ -77,52 +77,60 @@
                 padding-left: 1.4rem;
                 border-left: 4px solid #dadada;
             }
+
+            body {
+                margin: 4em;
+            }
+            
+            @media print {
+                body {
+                    margin: 2em;
+                }
+            }
         </style>
 
         <title>{{ name }}</title>
     </head>
     <body>
-        <div class="container">
-            <header>
-                <div class="logo">
-                    <img src="{{ logo_url }}" />
-                </div>
-                <div class="metadata">
-                    <h3>{{ shortname }}</h3>
-                    <h5>{{ contest }}</h5>
-                    <h5>{{ order }}</h5>
-                    <h5>{{ language }}</h5>
-                </div>
-            </header>
-            <hr />
+        <header>
+            <div class="logo">
+                <img src="{{ logo_url }}" />
+            </div>
+            <div class="metadata">
+                <h3>{{ shortname }}</h3>
+                <h5>{{ contest }}</h5>
+                <h5>{{ order }}</h5>
+                <h5>{{ language }}</h5>
+            </div>
+        </header>
+        <hr />
 
-            <h1>{{ name }}</h1>
-            {{ description | markdown }}
-            
-            {% if input %}
-            <h2>Input</h2>
-            {{ input | markdown }}
-            {% endif %}
-            
-            {% if output %}
-            <h2>Output</h2>
-            {{ output | markdown }}
-            {% endif %}
-            
-            {% if constraints %}
-            <h2>Constraints</h2>
-            {{ constraints | markdown }}
-            {% endif %}
-            
-            {% if scoring %}
-            <h2>Scoring</h2>
-            {{ scoring | markdown }}
-            {% endif %}
-            
-            {% if examples %}
-            <h2>Examples</h2>
-            {{ examples | markdown }}
-            {% endif %}
-        </div>
+        <h1>{{ name }}</h1>
+        {{ description | markdown }}
+        
+        {% if input %}
+        <h2>Input</h2>
+        {{ input | markdown }}
+        {% endif %}
+        
+        {% if output %}
+        <h2>Output</h2>
+        {{ output | markdown }}
+        {% endif %}
+        
+        {% if constraints %}
+        <h2>Constraints</h2>
+        {{ constraints | markdown }}
+        {% endif %}
+        
+        {% if scoring %}
+        <h2>Scoring</h2>
+        {{ scoring | markdown }}
+        {% endif %}
+        
+        {% if examples %}
+        <h2>Examples</h2>
+        {{ examples | markdown }}
+        {% endif %}
     </body>
 </html>
